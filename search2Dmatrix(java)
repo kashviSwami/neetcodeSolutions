@@ -1,0 +1,28 @@
+/* 
+approach: approach matrix as a 1d sorted array and perform binary search 
+time complexity: O(log(row*col)), binary search on size of row * column elements
+space complexity: 0(1), only utilizing pointers and no additional memory allocated 
+*/
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int rowSize = matrix.length, columnSize = matrix[0].length;
+        int low = 0, high = (rowSize*columnSize) - 1; //define binary search bounds
+        while (low <= high) { //traversing sorted space 
+            int mid = ((high - low)/2) + low; //calculate mid value 
+            int value = matrix[mid/columnSize][mid%columnSize]; //locating mid in 2D array
+            if (value == target){ 
+                return true;
+            } 
+            if (value < target) //perform rhs 
+            {
+                low = mid+1; 
+            }
+            if (value > target) //perform lhs 
+            {
+                high = mid-1; 
+            } 
+        }
+        return false; //target not found in matrix
+    }
+}
