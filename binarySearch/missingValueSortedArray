@@ -1,1 +1,27 @@
+/* 
+approach: value at index i would be (i + 1) prior to missing value, binary search for first index i where arr[i] != i + 1
+time complexity: O(log n)
+space complexity: O(1)
+*/
+
+class Solution {
+    public int findMissingNumber(int[] arr) {
+        int n = arr.length + 1;           //full count from 1 to n, since one is missing
+        int low = 0;                      //binary search lower bound (index)
+        int high = arr.length - 1;        //binary search upper bound (index)
+
+        while (low <= high) {             
+            int mid = low + (high - low) / 2; //compute mid index
+            int expected = mid + 1;           //expected value at index mid
+
+            if (arr[mid] == expected) { //left side is correct, missing number must be on the right
+                low = mid + 1;
+            } else { //missing number must be on left
+                answer = expected;  //candidate for missing number
+                high = mid - 1;     //search in left half
+            }
+        }
+        return answer; 
+    }
+}
 
